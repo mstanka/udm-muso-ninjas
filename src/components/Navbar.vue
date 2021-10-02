@@ -10,6 +10,7 @@
 
       <div class="links">
         <div v-if="user">
+          <router-link :to="{ name: 'CreatePlaylist' }">Create Playlist</router-link>
           <button class="btn" @click="handleClick">Logout</button>
         </div>
         <div v-else>

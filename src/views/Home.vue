@@ -1,5 +1,5 @@
 <template>
-  <div v-if="error" class="error">Could not fetch the data.</div>
+  <div v-if="error" class="error">Please login first to see all the playlists.</div>
   <div v-if="documents">
     <ListView :playlists="documents" />
   </div>

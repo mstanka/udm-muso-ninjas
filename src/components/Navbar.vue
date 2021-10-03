@@ -37,11 +37,11 @@ export default {
   setup() {
     const { logout } = useLogout();
     const { user } = getUser();
-    const { router } = useRouter();
+    const  router  = useRouter();
 
     const handleClick = async () => {
       await logout();
-      router.push({ name: 'Home' });
+      router.push({ name: 'Login' });
     };
 
     return { handleClick, user };
@@ -85,7 +85,7 @@ button {
   font-size: 1.5rem;
 }
 
-span { 
+span {
   font-size: 14px;
   display: inline-block;
   margin-left: 16px;

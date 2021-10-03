@@ -14,12 +14,23 @@
 
     <!-- song list -->
     <div class="song-list">
-      <p>Song list here</p>
+      <div v-if="!playlist.songs.length">
+        No songs have been added to the playlist yet.
+      </div>
+      <div v-for="song in playlist.songs" :key="song.id" class="single-song">
+        <div class="details">
+          <h3>{{ song.title }}</h3>
+          <p>{{ song.artist }}</p>
+        </div>
+        <button v-if="ownership">Delete</button>
+      </div>
+      <AddSong v-if="ownership" :playlist="playlist" />
     </div>
   </div>
 </template>
 
 <script>
+import AddSong from '../../components/AddSong.vue';
 import getDocument from '../../composables/getDocument';
 import getUser from '../../composables/getUser';
 import useDocument from '../../composables/useDocument';
@@ -28,7 +39,9 @@ import { useRouter } from 'vue-router';
 import { computed } from 'vue';
 
 export default {
+  components: { AddSong },
   props: ['id'],
+
   setup(props) {
     const { error, document: playlist } = getDocument('playlists', props.id);
     const { user } = getUser();
@@ -60,9 +73,9 @@ export default {
   gap: 80px;
 }
 
-@media screen and (min-width: 660px) {
+@media screen and (min-width: 769px) {
   .playlist-details {
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 2fr 3fr;
   }
 }
 .cover {
@@ -71,7 +84,7 @@ export default {
 }
 .cover img {
   display: block;
-  max-width: 600px;
+  max-width: 760px;
   width: 100%;
   object-fit: cover;
 }
@@ -91,5 +104,16 @@ export default {
 }
 .description {
   text-align: left;
+}
+.song-list {
+  padding: 0 20px;
+}
+.single-song {
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px dashed var(--secondary);
+  margin-bottom: 20px;
 }
 </style>

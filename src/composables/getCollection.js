@@ -1,7 +1,7 @@
 import { ref, watchEffect } from 'vue';
 import { projectFirestore } from '../firebase/config';
 
-const getCollection = (collection) => {
+const getCollection = (collection, query) => {
   const documents = ref(null);
   const error = ref(null);
 
@@ -9,6 +9,11 @@ const getCollection = (collection) => {
   let collectionRef = projectFirestore
     .collection(collection)
     .orderBy('createdAt');
+
+    // it requires to create composite index in firestore
+    if(query) {
+      collectionRef = collectionRef.where(...query)
+    }
 
   const unsub = collectionRef.onSnapshot(
     (snap) => {

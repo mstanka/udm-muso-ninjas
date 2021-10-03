@@ -16,6 +16,7 @@
           <router-link :to="{ name: 'CreatePlaylist' }"
             >Create Playlist</router-link
           >
+          <span>Hi here, {{ user.displayName }}</span>
           <button class="btn" @click="handleClick">Logout</button>
         </div>
         <div v-else>
@@ -40,7 +41,7 @@ export default {
 
     const handleClick = async () => {
       await logout();
-      router.push({ name: 'Login' });
+      router.push({ name: 'Home' });
     };
 
     return { handleClick, user };
@@ -82,5 +83,13 @@ button {
 
 .logo-title {
   font-size: 1.5rem;
+}
+
+span { 
+  font-size: 14px;
+  display: inline-block;
+  margin-left: 16px;
+  padding-left: 16px;
+  border-left: 1px solid rgb(50, 50, 50);
 }
 </style>

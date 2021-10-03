@@ -10,18 +10,22 @@
 
       <div class="links">
         <div v-if="user">
-          <router-link :to="{ name: 'UserPlaylists' }"
+          <router-link :to="{ name: 'UserPlaylists' }" class="link"
             >My Playlists</router-link
           >
-          <router-link :to="{ name: 'CreatePlaylist' }"
+          <router-link :to="{ name: 'CreatePlaylist' }" class="link"
             >Create Playlist</router-link
           >
-          <span>Hi here, {{ user.displayName }}</span>
-          <button class="btn" @click="handleClick">Logout</button>
+          <span class="link">Hi here, {{ user.displayName }}</span>
+          <button class="btn link" @click="handleClick">Logout</button>
         </div>
         <div v-else>
-          <router-link class="btn" :to="{ name: 'Signup' }">Signup</router-link>
-          <router-link class="btn" :to="{ name: 'Login' }">Login</router-link>
+          <router-link class="btn link" :to="{ name: 'Signup' }"
+            >Signup</router-link
+          >
+          <router-link class="btn link" :to="{ name: 'Login' }"
+            >Login</router-link
+          >
         </div>
       </div>
     </nav>
@@ -37,7 +41,7 @@ export default {
   setup() {
     const { logout } = useLogout();
     const { user } = getUser();
-    const  router  = useRouter();
+    const router = useRouter();
 
     const handleClick = async () => {
       await logout();
@@ -57,15 +61,21 @@ export default {
 }
 nav {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: space-between;
   max-width: var(--max-width);
   margin: 0 auto;
 }
 
-nav .links a,
-button {
-  margin-left: 16px;
+.links {
+  margin: 20px auto;
+  text-align: center;
+}
+
+.link {
+  display: inline-block;
+  margin: 10px 5px;
   font-size: 14px;
 }
 .logo {
@@ -87,9 +97,20 @@ button {
 
 span {
   font-size: 14px;
-  display: inline-block;
-  margin-left: 16px;
-  padding-left: 16px;
+  padding-left: 8px;
   border-left: 1px solid rgb(50, 50, 50);
+}
+
+@media screen and (min-width: 768px) {
+  nav {
+    flex-direction: row;
+  }
+
+  .links {
+    margin: 0;
+  }
+  .link {
+    margin: 0 5px;
+  }
 }
 </style>
